@@ -1,0 +1,434 @@
+\documentclass[fleqn,usenatbib]{mnras}
+\usepackage{newtxtext,newtxmath}
+\usepackage[T1]{fontenc}
+\DeclareRobustCommand{\VAN}[3]{#2}
+\let\VANthebibliography\thebibliography
+\def\thebibliography{\DeclareRobustCommand{\VAN}[3]{##3}\VANthebibliography}
+
+%%%%% AUTHORS - PLACE YOUR OWN PACKAGES HERE %%%%%
+\usepackage{graphicx}	% Including figure files
+\usepackage{amsmath}	% Advanced maths commands
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage{fontawesome}
+\usepackage{listings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
+
+% COMMENTS
+\newcommand{\SB}[1]{{\textcolor{purple}{#1}}}
+
+% NAMES
+\newcommand{\Gaia}{\textit{Gaia}\xspace} % \Gaia
+
+% STELLAR LABELS
+\newcommand{\Teff}{$T_\mathrm{eff}$\xspace}
+\newcommand{\logg}{$\log g$\xspace}
+\newcommand{\feh}{$\mathrm{[Fe/H]}$\xspace}
+
+% UNITS
+\newcommand{\dex}{\,\mathrm{dex}}	% dex
+\newcommand{\K}{\,\mathrm{K}}	% dex
+\newcommand{\Msol}{\,\mathrm{M_\odot}} % Msol
+\newcommand{\kpc}{\,\mathrm{kpc}}	% kpc
+\newcommand{\Gyr}{\,\mathrm{Gyr}}	% Gyr
+\newcommand{\Angstroem}{\,\text{\AA}}	% Angstroem
+\newcommand{\kms}{\,\mathrm{km\,s^{-1}}}	% km/s
+
+% GITHUB INFORMATION
+\newcommand{\githubusername}{USERNAME}
+\newcommand{\githubrepository}{REPOSITORY}
+\newcommand{\codeicon}{{\faCloudDownload}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
+
+% Title of the paper, and the short title which is used in the headers.
+% Keep the title short and informative.
+\title[Short title, max. 45 characters]{ASTR3005 TEMPLATE -- PROJECT TITLE\thanks{All code, data, figures, and tables available at \url{https://github.com/\githubusername/\githubrepository}.}}
+
+% The list of authors, and the short list which is used in the headers.
+% If you need two or more lines of authors, add an extra line using \newauthor
+\author[M. Bedford et al.]{
+Marcus Bedford,$^{1}$\thanks{E-mail: u7312236@anu.edu.au}
+and S. Buder$^{1,2}$
+\\
+% List of institutions
+$^{1}$Research School of Astronomy and Astrophysics, Australian National University, Canberra, ACT 2611, Australia\\
+$^{2}$ARC Centre of Excellence for All Sky Astrophysics in 3 Dimensions (ASTRO 3D), Australia
+}
+
+% These dates will be filled out by the publisher
+\date{Accepted DD MM 2024. Received DD MM 2024; in original form 22 February 2024}
+
+% Enter the current year, for the copyright statements etc.
+\pubyear{2024}
+
+% Don't change these lines
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+
+% Abstract of the paper
+\begin{abstract}
+In this abstract, you briefly summarise your work with less than 250 words (and without references). Use the following layout to structure your abstract (but remove the bold words afterwards): \newline
+% CONTEXT
+\textbf{Context:} \newline
+% AIMS
+\textbf{Aims:} \newline
+% METHODS/ANALYSIS
+\textbf{Methods/Analysis:} \newline
+% RESULTS
+\textbf{Results:} \newline
+% CONCLUSIONS / IMPACT
+\textbf{Conclusions / Expected Impact:} \newline
+\href{https://github.com/\githubusername/\githubrepository}{\faGithub}
+\end{abstract}
+
+% Select between one and six entries from the list of approved keywords:
+%https://academic.oup.com/DocumentLibrary/mnras/keywords.pdf
+\begin{keywords}
+techniques: spectroscopic -- stars: abundances -- keyword3 -- keyword4 -- keyword5 -- keyword6
+\end{keywords}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% BODY OF PAPER %%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+Your actual paper should start with an Introduction section, which sets the work in context, cites relevant earlier studies and reviews in the field and describes the problem the authors aim to solve.
+
+You can cite the works by \citet{DeSilva2015, Buder2021} explicitly, or just introduce concepts with a reference at the end of the statement \citep[e.g.][]{Buder2021}. For example that we define the absolute \textit{chemical abundance} A(X) as the logarithmic ratio of the number densities $N$ of elements X to hydrogen, that is 
+\begin{equation}
+\mathrm{A(X)} = \log_{10} \frac{N_\text{X}}{N_\text{H}} + 12.   
+\end{equation}
+
+Comparing this ratio with the Solar ($\odot$) one would lead us to 
+\begin{equation}
+\mathrm{[X/H]} = \mathrm{A(X)} - \mathrm{A(X)}_\odot    
+\end{equation}
+and comparing that to iro\footnote{Iron is used because it is one of the elements with the most lines in neutral and ionised states in stellar spectra and a lot of element number densities scale with it.} as an often-used metallicity tracer would lead us to
+\begin{equation}
+\mathrm{[X/Fe]} = \mathrm{[X/H]} - \mathrm{[Fe/H]}.
+\end{equation}
+
+Remember to introduce acronyms like the Galactic Archaeology with HERMES (GALAH) Survey when you use them the first time.
+
+For a journal paper, an introduction should not be longer than two pages and make the reader want to continue reading. For a literature review, it should be a bit longer and can include subsections (that is your choice). In general, it should include an initial scientific motivation (Sec.~\ref{sec:intro_motivation}) that allows you to identify a big problem that you want to help solve (Sec.~\ref{sec:intro_problem}) by doing some very specific research with a specific objective or hypothesis (Sec.~\ref{sec:intro_objectives}).
+
+\subsection{Scientific Motivation and Context} \label{sec:intro_motivation}
+
+There are many great reviews available for Galactic archaeology and Stellar Physics. Below I am just listing a few examples:
+\begin{itemize}
+    \item \citet{FreemanBlandHawthorn2002} for chemical tagging and \citet{BlandHawthorn_Gerhard2016} for the Milky Way
+    \item \citet{Bastian2018} for globular clusters
+    \item \citet{McWilliam1997} for Galactic chemical evolution
+    \item \citet{Asplund2009} for the chemical composition of the Sun
+    \item \citet{Jofre2019} and 
+    \item \citet{Soderblom2010} for stellar ages,
+    \item \citet{Conroy2013} for modelling integrated spectra and spectral energy distributions of (other) galaxies,
+    \item \citet{Savage1979} for the observed properties of interstellar dust
+    \item \citet{Helmi2020} for accretion, streams, and the early history of the Milky Way, and related to that the review by \citet{Tolstoy2009} for dwarf galaxies in the local group
+\end{itemize}
+
+Throughout my research career, I have been inspired by a few outstanding works, including:
+\begin{itemize}
+    \item \cite{Nissen2010} on two distinct halo populations in the halo of the Milky Way (basically finding the first evidence of a major merger event, before we confirmed it with information from the \Gaia satellite)
+\end{itemize}
+
+\subsection{The Problem(s) or Insight We Want To Get} \label{sec:intro_problem}
+
+Here you describe what specific problem you are trying to solve and why it is so important to solve this particular issue. This will help to identify specific objectives that are needed in order to solve this issue or gain a specific insight (or at least make important progress in that direction).
+
+\subsection{Objective of This Research} \label{sec:intro_objectives}
+
+It is up to your style choice, but I personally like to set up specific objectives (or: hypotheses) that I can always use as a guide for the research and writing. In particular, I like to tell the reader that I aim to address the following open questions:
+\begin{itemize}
+    \item To which extend is ...?
+    \item How can we best ...?
+    \item What physical process drive ...?
+    \item How strong is the correlation between ... and can we explain this with a physical causality?
+\end{itemize}
+
+\subsection{Structure of This Paper} \label{sec:intro_structure}
+
+Similar to a table of contents, tell the reader where to find what:
+
+We present the data used for this study in Sec.~\ref{sec:data}, together with a description of different quality cuts that we perform. We then describe our analysis approach in Sec.~\ref{sec:analysis}. We present our results in Sec.~\ref{sec:results} and put them into context during our discussion in Sec.~\ref{sec:discussion}. We conclude our stud and give an outlook in Sec.~\ref{sec:conclusions}.
+
+\section{Data} \label{sec:data}
+
+This section should describe all the data that you used. Try to explain everything that is necessary for a reader to understand how the data was obtained, but do not go overboard with the details:  (it is not important that button X was pressed)
+
+Normally the next section describes the techniques the authors used.
+It is frequently split into subsections, such as Section~\ref{sec:maths} below.
+
+Whenever you perform any cuts or selection of the data, you need to include this in the manuscript. An easy way could be to use an equation, like Eq.~\ref{eq:basic_cuts}:
+\begin{equation} \label{eq:basic_cuts}
+\text{Basic cuts} = 
+\begin{cases}
+\texttt{flag\_sp} = 0, \texttt{flag\_fe\_h} = 0, \\
+\texttt{flag\_X\_fe} = 0 \text{ for each used element X} \\
+\end{cases}
+\end{equation}
+
+
+\section{Analysis} \label{sec:analysis}
+
+\section{Results} \label{sec:results}
+
+\section{Discussion} \label{sec:discussion}
+
+How you structure this section is again totally up to you. I personally like to remind myself of the objectives of the research from Sec.~\ref{sec:intro_objectives}.
+
+The aim of our study is to find ... (see Sec.~\ref{sec:intro_objectives})
+
+\subsection{Objective 1 (replace that with a meaningful title)} \label{sec:discussion_objective_1}
+
+\subsection{Objective 2 (replace that with a meaningful title)} \label{sec:discussion_objective_2}
+
+\subsection{Objective 3 (replace that with a meaningful title)} \label{sec:discussion_objective_3}
+
+
+\section{Conclusions} \label{sec:conclusions}
+
+In my opinion, this is a personal choice, but roughly half of the researchers use a final section to briefly summarise what has been done, and describe the final conclusions which the authors draw from their work.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\section*{Acknowledgements}
+
+Here you can thank helpful colleagues, acknowledge funding agencies, telescopes and facilities used etc. I personally also include a statement that pays respect to the traditional custodians of the Country that this work was done from. I for example, start my acknowledgements like this:
+
+We acknowledge the traditional owners of the land on which the AAT and ANU stand, the Gamilaraay, the Ngunnawal and Ngambri people. We pay our respects to elders past and present and are proud to continue their tradition of surveying the night sky in the Southern hemisphere.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Facilities}
+
+\textbf{\Gaia: } This work has made use of data from the European Space Agency (ESA) mission \Gaia (\url{http://www.cosmos.esa.int/gaia}), processed by the \Gaia Data Processing and Analysis Consortium (DPAC, \url{http://www.cosmos.esa.int/web/gaia/dpac/consortium}). Funding for the DPAC has been provided by national institutions, in particular the institutions participating in the \Gaia Multilateral Agreement. 
+\textbf{Other facilities:} This publication makes use of data products from the Two Micron All Sky Survey \citep{Skrutskie2006} and the CDS VizieR catalogue access and Aladin visualisation tool \citep{Vizier2000,Aladin2000}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Software}
+
+The research for this publication was coded in \textsc{python} (version 3.7.4) and included its packages
+\textsc{astropy} \citep[v. 3.2.2;][]{Robitaille2013,PriceWhelan2018},
+\textsc{IPython} \citep[v. 7.8.0;][]{ipython},
+\textsc{matplotlib} \citep[v. 3.1.3;][]{matplotlib},
+\textsc{NumPy} \citep[v. 1.17.2;][]{numpy}, and
+\textsc{scipy} \citep[version 1.3.1;][]{scipy}.
+We further made use of \textsc{topcat} \citep[version 4.7;][]{Taylor2005};
+
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
+\bibliographystyle{mnras}
+\bibliography{bibliography} % if your bibtex file is called example.bib
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\section{Before you get started -- Delete this section before submission!}
+
+\subsection{Expectations}
+
+\subsubsection{Marking Guidelines}
+
+Because this research will be marked, I strongly recommend you to familiarise yourself with the guidelines that you will get for the specific research.
+
+The markers (which will likely include at least one person outside of my research area) are following the \textit{Marking Guidelines} and will be looking for ways to \textit{tick off} the specific criteria for each of the marks. Some of these marks will be given based on my assessment of independence, persistence, showing initiative etc.
+
+\subsubsection{Running Notes and Deadlines}
+
+Writing down plans, action items, and thoughts in general is extremely important. You can of course do that with pen and paper if you prefer. Otherwise, you can also create a \href{https://docs.google.com}{GoogleDoc} to document this or use the end of this document (Sec.~\ref{sec:running_notes}). In any case, please add the deadlines in Table~\ref{tab:deadlines}.
+
+\begin{table}
+	\centering
+	\caption{When is what due?}
+	\label{tab:deadlines}
+	\begin{tabular}{lll} % four columns, alignment for each
+		\hline
+		Deadline & Week & Actual Date \\
+		\hline
+		Literature Review     & 6 & DD MM YY\\
+		Final Presentation    & 11 & DD MM YY\\
+		Final Report          & 12 & DD MM YY\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsubsection{Communication and meetings}
+
+\begin{itemize}
+    \item I will make time to meet every student for \textit{at least} one hour per week. I prefer a scheduled meeting, but am happy to have impromptu meetings as well.
+    \item Similar to the big tech companies, I will give you bonus marks if you try different approaches or make mistakes and tell me what you learned from them. If you are getting stuck with your research (for example coding), try to find a solution yourself (within a reasonable time, e.g. a code issue should be fixed within less than 30 minutes). Also consider asking your fellow students, feel free and strongly encouraged to ask me. The research project is too short to wait a whole week to wait until our next meeting to ask a question. 
+    \item I ask my students to join the weekly group meetings (currently Thursdays 3-4pm in AITC1). This will be a great way to learn more about science and how it is done. In the current format, the group meeting rotates between (1) everyone-brings-a-plot, (2) paper-discussion, (3) skillsharing, and (4) expert talk sessions.
+\end{itemize}
+
+\subsubsection{Coding}
+
+I am not a great coder myself - so I will not look down on any code that you write. But just like myself, I encourage you to always strive to improve yourself. There are a few ways to do that:
+\begin{itemize}
+    \item GitHub Copilot or ChatGPT are great ways to improve your coding (and commenting code). You can always ask these tools to improve your code and properly comment it (in most cases these tools will actually be able to help - but you have to check if the code still does what it is supposed to do).
+    \item Automate your code: Use classes and functions with arguments. Whenever you copy code to apply it twice, this should be in a function (again the above programs can help you if you are new to coding).
+    \item Use \textsc{pandas.DataFrame} or \textsc{astropy.table.Table} when working with large data collections. They have a lot of functionalities, like joining tables or visualising data easily.
+    \item Save your results. This avoids to rerun expensive computations. Try to save your results in a useful format, for example FITS files.
+    \item Make sure that you can repeat your measurements. When you share your code it should produce the same output independent of who is using it. When running code with random input (e.g. numpy.random), you can use the numpy.seed function.
+\end{itemize}
+
+\subsubsection{Figures}
+
+Visualising your results is one of the most important parts of scientific communication and presentation. A lot of people will decide to read your paper (or not) based on a quick read of the abstract and looking at your figures (I am guilty of that myself). Great figures will also be picked up more often by other researchers in their own scientific communication (nobody will show an overly complicated and busy plot with too small font and a bad color choice).
+
+\begin{itemize}
+    \item Every figure needs axis labels
+    \item The font size of everything on the figure should be at least as large as that of the normal text of the manuscript
+    \item Plots with multiple panels need panel labels a), b) etc. and should share the same axis limits (where possible), see Sec.~\ref{sec:figures}
+    \item scatter vs. 2D-histogram vs. contour:
+    \begin{itemize}
+        \item If you only show a few points, plt.scatter is the way to go
+        \item For more than 50+ points, you should switch to a histogram plot (plt.hist2d)
+        \item If you want to show multiple samples, try to use either contour plots or a combination of plt.hist2d in the background
+    \end{itemize}    
+    \item You can either use \textsc{figures} with columnwidth for a small figures or large \textsc{figures*} with textwidth.
+\end{itemize}
+
+\subsection{Finding and Writing Your Research Story}
+
+Scientific writing can be incredibly difficult. There are different ways to guide your thinking that you could try in case you feel stuck:
+\begin{itemize}
+    \item Prepare a presentation with 10 slides that include the motivation, data, analysis, results, discussion, and a summary. I have always found this incredibly useful to find my \textit{story} and identify the key results and their impact.
+\end{itemize}
+
+\subsection{Useful Software}
+
+\subsubsection{Finding and Managing References}
+
+\begin{itemize}
+    \item \href{https://ui.adsabs.harvard.edu}{ADS} is a website that allows you to search for papers with keywords. It also includes the necessary information to create a bibliography entry and find the actual paper PDF (and even its source code) on the journal website or the arXiv.
+    \item \href{https://arxiv.org}{arXiv} is a website where researchers upload their papers with free access to allow others to see their science.
+    \item \href{https://bibdesk.sourceforge.io}{BibDesk} is a program that allows you to save and search your references in a useful list. You can also store the location of the PDFs for each paper, so that you do not have to search for it on your computer (filenames can be quite random). You can import or store multiple bibliographies, for example as *.bib file, and upload them into overleaf.
+\end{itemize}
+
+\subsubsection{GitHub}
+
+As a proponent of open, repeatable, and inclusive science, I encourage you to link to your GitHub repository, where the public can access your code and results. For this, you have to update the commands for \githubusername\xspace and \githubrepository\xspace in the preamble.
+
+\subsubsection{Astronomical software / websites}
+
+\begin{itemize}
+    \item The CDS VizieR catalogue access tool \citep{Vizier2000} 
+\end{itemize}
+
+
+\subsubsection{TOPCAT}
+
+\href{https://www.star.bris.ac.uk/~mbt/topcat/}{\textsc{TOPCAT}} by 
+
+
+
+\section{Making great figures} \label{sec:figures}
+
+\begin{lstlisting}[language=Python, caption=How to create a figure with 2 panels]
+# define keywords like a fontsize
+mfs = 15
+
+f, gs = plt.subplots(1,2,sharex=True)
+# sharex adjust the xlim to be the same
+
+# Panel a)
+ax = gs[0]
+s = ax.plot(xdata, ydata, c = colordata)
+ax.set_xlabel(X Label / Unit, fontsize=mfs)
+ax.set_ylabel(Y Label / Unit, fontsize=mfs)
+cbar = plt.colorbar(s,ax=ax)
+cbar.set_label(Label / Unit, fontsize=mfs)
+
+# Panel b)
+ax = gs[1]
+s = ax.plot(xdata, ydata, c = colordata)
+ax.set_xlabel(X Label / Unit, fontsize=mfs)
+ax.set_ylabel(Y Label / Unit, fontsize=mfs)
+cbar = plt.colorbar(s,ax=ax)
+cbar.set_label(Label / Unit, fontsize=mfs)
+
+# Limit the white space
+plt.tight_layout()
+
+# Save the figure in a reasonable quality
+# For *.png: bbox_inches='tight',dpi=300
+# For *.pdf: avoid for scatter plots
+plt.savefig(figures/useful_name.pdf)
+\end{lstlisting}
+
+
+\section{Useful LaTeX information} \label{sec:latex_information}
+
+Below I am including a few examples of how to use maths, figures, and tables in \LaTeX. For a full user guide, please see the \texttt{mnras\_guide.tex}.
+
+\subsection{Maths, Equations, and Units}
+\label{sec:maths} % used for referring to this section from elsewhere
+
+Simple mathematics can be inserted into the flow of the text, for example $v=220\,\mathrm{km\,s^{-1}}$. If you will use a unit a lot, it can come in handy to define it as a command, for example \textbackslash Teff, in the preamble, so that you can use it as \Teff, \logg, and \feh.
+
+More complicated expressions should be entered as a numbered equation:
+
+\begin{equation}
+    x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}.
+	\label{eq:quadratic}
+\end{equation}
+
+Refer back to them as e.g. equation~(\ref{eq:quadratic}).
+
+\subsection{Figures and tables}
+
+Figures and tables should be placed at logical positions in the text. Figures are referred to as e.g. Fig.~\ref{fig:example_figure_small} or Figs.~\ref{fig:example_figure_small}-\ref{fig:example_figure_large}, and tables as e.g. Table~\ref{tab:example_table}.
+
+% Example figure
+\begin{figure}
+	\includegraphics[width=\columnwidth]{figures/placeholder_columnwidth.png}
+    \caption{This is a small example figure. Captions appear below each figure.
+	Give enough detail for the reader to understand what they're looking at,
+	but leave detailed discussion to the main body of the text.}
+    \label{fig:example_figure_small}
+\end{figure}
+
+% Example figure
+\begin{figure*}
+	\includegraphics[width=\textwidth]{figures/placeholder_textwidth.png}
+    \caption{This is a large example figure. Captions appear below each figure.
+	Give enough detail for the reader to understand what they're looking at,
+	but leave detailed discussion to the main body of the text.}
+    \label{fig:example_figure_large}
+\end{figure*}
+
+% Example table
+\begin{table}
+	\centering
+	\caption{This is an example table. Captions appear above each table.
+	Remember to define the quantities, symbols and units used.}
+	\label{tab:example_table}
+	\begin{tabular}{lccr} % four columns, alignment for each
+		\hline
+		A & B & C & D\\
+		\hline
+		1 & 2 & 3 & 4\\
+		2 & 4 & 6 & 8\\
+		3 & 5 & 7 & 9\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\section{Running Notes} \label{sec:running_notes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{lastpage}
+\end{document}
