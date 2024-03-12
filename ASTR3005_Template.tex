@@ -12,6 +12,8 @@
 \usepackage{xcolor}
 \usepackage{fontawesome}
 \usepackage{listings}
+\usepackage{changepage}
+\usepackage{graphicx}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
@@ -47,7 +49,7 @@
 
 % Title of the paper, and the short title which is used in the headers.
 % Keep the title short and informative.
-\title[Short title, max. 45 characters]{ASTR3005 TEMPLATE -- PROJECT TITLE\thanks{All code, data, figures, and tables available at \url{https://github.com/\githubusername/\githubrepository}.}}
+\title[Short title, max. 45 characters]{Stellar Ages for Galactic Archaeology with HERMES (GALAH)\thanks{All code, data, figures, and tables available at \url{https://github.com/\githubusername/\githubrepository}.}}
 
 % The list of authors, and the short list which is used in the headers.
 % If you need two or more lines of authors, add an extra line using \newauthor
@@ -74,11 +76,10 @@ $^{2}$ARC Centre of Excellence for All Sky Astrophysics in 3 Dimensions (ASTRO 3
 
 % Abstract of the paper
 \begin{abstract}
-In this abstract, you briefly summarise your work with less than 250 words (and without references). Use the following layout to structure your abstract (but remove the bold words afterwards): \newline
 % CONTEXT
-\textbf{Context:} \newline
+\textbf{Context:} Galactic Archaeology attempts to piece together the history and evolution of our Galaxy through information from today. With higher resolution spectroscopy from HERMES, accurate parallax from Gaia and asteroseismic data from K2, there is a wealth of new information from which to derive the mass and age of stars in the Milky Way. \newline
 % AIMS
-\textbf{Aims:} \newline
+\textbf{Aims:} Comparing to the PARSEC isochrones, main sequence turn off (MSTO) stars will be fit using information provided from their spectra and further analysed in a Bayesian framework. Similarly, a model has been built to accurately predict the mass, and then consequently the ages of Red giants stars. These models will then be applied to unseen stars from the GALactic Archaeology with HERMES (GALAH) dr4.   \newline
 % METHODS/ANALYSIS
 \textbf{Methods/Analysis:} \newline
 % RESULTS
@@ -100,53 +101,27 @@ techniques: spectroscopic -- stars: abundances -- keyword3 -- keyword4 -- keywor
 
 \section{Introduction}
 
-Your actual paper should start with an Introduction section, which sets the work in context, cites relevant earlier studies and reviews in the field and describes the problem the authors aim to solve.
-
-You can cite the works by \citet{DeSilva2015, Buder2021} explicitly, or just introduce concepts with a reference at the end of the statement \citep[e.g.][]{Buder2021}. For example that we define the absolute \textit{chemical abundance} A(X) as the logarithmic ratio of the number densities $N$ of elements X to hydrogen, that is 
-\begin{equation}
-\mathrm{A(X)} = \log_{10} \frac{N_\text{X}}{N_\text{H}} + 12.   
-\end{equation}
-
-Comparing this ratio with the Solar ($\odot$) one would lead us to 
-\begin{equation}
-\mathrm{[X/H]} = \mathrm{A(X)} - \mathrm{A(X)}_\odot    
-\end{equation}
-and comparing that to iro\footnote{Iron is used because it is one of the elements with the most lines in neutral and ionised states in stellar spectra and a lot of element number densities scale with it.} as an often-used metallicity tracer would lead us to
-\begin{equation}
-\mathrm{[X/Fe]} = \mathrm{[X/H]} - \mathrm{[Fe/H]}.
-\end{equation}
-
-Remember to introduce acronyms like the Galactic Archaeology with HERMES (GALAH) Survey when you use them the first time.
-
-For a journal paper, an introduction should not be longer than two pages and make the reader want to continue reading. For a literature review, it should be a bit longer and can include subsections (that is your choice). In general, it should include an initial scientific motivation (Sec.~\ref{sec:intro_motivation}) that allows you to identify a big problem that you want to help solve (Sec.~\ref{sec:intro_problem}) by doing some very specific research with a specific objective or hypothesis (Sec.~\ref{sec:intro_objectives}).
+Obtaining accurate ages and masses for stars is an ongoing battle that improves through more precise data, increasingly accurate models and faster computers. The desire to have accurate and precise age and mass is fundamental to galactic Archaeology. Alongside other parameters such as chemical composition, position in the Milky Way, temperature and luminosity, age and mass will more concretely establish the evolution and composition of the Galaxy. Beyond this, understanding our spiral galaxy in great detail will allow further understanding of other similar galaxies. The difficulty of measuring a star’s age continues to hamper progress in Galactic studies (\citet{BlandHawthorn_Gerhard2016}). With giants being some of the most luminous objects in space the methodology 
+described in this study for aging these and MSTO stars is highly applicable to more distant galaxies. 
+\\
+With high-precision data from GALAH dr4 we are in a good position to address the need for accurate and far reaching data. This study will explore two common methods for analysing stellar ages and masses: Isochrone fitting and Carbon and Nitrogen abundance. Both methods excel over a limited range of stars with isochrones being suited to the main sequence turn off and subgiants (\citet{Martigetal2016}) whilst extrapolating from Carbon and Nitrogen abundance is best for Red Giants. Combining both methods will allow this study to analyse more stars within the survey.
 
 \subsection{Scientific Motivation and Context} \label{sec:intro_motivation}
+Historically, The determination of accurate stellar ages and masses is notoriously difficult (\citet{linetal2018}). Unfortunately, time is not really a direct agent of change in stars, it is more a medium in which gradual changes occur (\citet{Soderblom2010}), making it difficult to determine age with precision. To date, the Sun is the only star with which we know age and mass to great accuracy. Beyond this, Asteroseismology is providing the next most accurate estimations of mass and age of red giants (\citet{Ness_2016}). The stars observed by K2 (\citet{2014Howell}) provide accurate asteroseismic information from a small portion of stars overlapped with GALAH spectroscopic data. This overlap provides a promising opportunity to train machine learning models on K2 stars that can then be applied to other stars in the survey.
+\\
+Previous papers have analysed various components of the Milky Way in great detail. One such paper by \citet{ciuca2021} looked closely at the chemical geography of the Galaxy stating a clear transition phase from the smaller chemically well-mixed thick to a larger thin disc with a metallicity gradient. This paper is also partly inspired by the work of \citet{2022Natur} who published fascinating work on the history of stellar evolution of the Galaxy by quantifying star age, stating
+\\
+\begin{adjustwidth}{1cm}{}
+    \textit {"Star formation rate of the old disks reached a prominent maximum at \(\sim\)11.2Gyr ago, apparently just when the merger with the Gaia Enceladus was complete, and then continuously declined with time."\newline}
+\end{adjustwidth} 
 
-There are many great reviews available for Galactic archaeology and Stellar Physics. Below I am just listing a few examples:
-\begin{itemize}
-    \item \citet{FreemanBlandHawthorn2002} for chemical tagging and \citet{BlandHawthorn_Gerhard2016} for the Milky Way
-    \item \citet{Bastian2018} for globular clusters
-    \item \citet{McWilliam1997} for Galactic chemical evolution
-    \item \citet{Asplund2009} for the chemical composition of the Sun
-    \item \citet{Jofre2019} and 
-    \item \citet{Soderblom2010} for stellar ages,
-    \item \citet{Conroy2013} for modelling integrated spectra and spectral energy distributions of (other) galaxies,
-    \item \citet{Savage1979} for the observed properties of interstellar dust
-    \item \citet{Helmi2020} for accretion, streams, and the early history of the Milky Way, and related to that the review by \citet{Tolstoy2009} for dwarf galaxies in the local group
-\end{itemize}
+For the most part, age estimates from spectroscopic surveys have been determined for stars before or just after MSTO and subgiants. In that regime, stellar evolutionary isochrones are well separated (\citet{Ness_2016}). Furthermore, subgiants have been described as the best practical tracers of Galactic archaeology as their elemental compositions determined from spectra, accurately reflect their birth material composition billions of years ago (\citet{2022Natur}). Isochrones have provided a foundation for astronomers to compare theoretical and observational data over many years, notably for this study \citet{linetal2018}, \citet{2022Natur}, \citet{ciuca2021}, \citet{Jorgensen2005}. Whilst Isochrone fitting is historically a hugely popular method for stellar analysis, quantifying their statistical reliability in view of the observational uncertainties, is relatively newer and within the domain of Bayesian analysis (\citet{Jorgensen2005}). 
 
-Throughout my research career, I have been inspired by a few outstanding works, including:
-\begin{itemize}
-    \item \cite{Nissen2010} on two distinct halo populations in the halo of the Milky Way (basically finding the first evidence of a major merger event, before we confirmed it with information from the \Gaia satellite)
-\end{itemize}
-
-\subsection{The Problem(s) or Insight We Want To Get} \label{sec:intro_problem}
-
-Here you describe what specific problem you are trying to solve and why it is so important to solve this particular issue. This will help to identify specific objectives that are needed in order to solve this issue or gain a specific insight (or at least make important progress in that direction).
+On the other hand, masses of red giant stars can be well predicted from their photospheric carbon and nitrogen abundances in conjunction with information on log g, \(T_{eff}\) and [Fe/H] (\citet{Martigetal2016}). Furthermore, ages of giants can be directly inferred from their masses. Giants make excellent subjects for a galactic survey as their higher luminosity allows them to be seen from great distances. Because the [C/N] ratio in the core and the depth reached by the first dredge-up depend on stellar mass, the final [C/N] ratio at the surface depends on stellar mass (\citet{Martigetal2016}). a model will be trained and tested on stars with ages derived accurately from K2 Asteroseismic data and then applied to the remaining stars within the cut from GALAH.
 
 \subsection{Objective of This Research} \label{sec:intro_objectives}
-
-It is up to your style choice, but I personally like to set up specific objectives (or: hypotheses) that I can always use as a guide for the research and writing. In particular, I like to tell the reader that I aim to address the following open questions:
+This study will apply, and where possible improve upon, previous stellar aging methods to the set of stars within the cut of GALAH dr4. This study will pay particular interest to stars on the extreme edges of the Z axis of the Galactic plane where less information is currently available, to help provide a more encompassing map of Galactic geography. A recent study by \citet{2022Natur} using isochrone fitting on a broad area of the Milky Way set the benchmark for this study claiming, "Such high precision has never been reached for any large sample of stars before", achieving an age uncertainty of only 7.5\%. However, 90\% of the stars considered in the survey were within \(-1.2kpc < Z < 2kpc\)  of the Z axis of the galactic plane. The width of stars observed by GALAH reaches far beyond this.  \\
+The updated PAdova tRieste Stellar Evolutionary Code (PARSEC) v2.0 (\cite{Costaetal2019a, Costaetal2019b,Nguyenetal2022}) will be used in a Bayesian framework with priors relating to initial mass and ... to find the most likely age and mass with uncertainty. Whilst there are many Isochrones that as the Yonsei-Yale models (\citet{Yi2003}) that would do a similar job, PARSEC is best suited to lower and intermediate mass stars. PARSEC v2.0 provides isochrones ranging 6 initial metallicities from \(0.004 \leq \mathrm{[X/H]} \leq 0.017\), initial mass ranging from \(0.09\leq \Msol\leq14\) as well the inclusion of 7 initial rotation values ranging from \(0\leq \Omega/\Omega_{crit}\leq 0.99\). 
 \begin{itemize}
     \item To which extend is ...?
     \item How can we best ...?
@@ -161,7 +136,7 @@ Similar to a table of contents, tell the reader where to find what:
 We present the data used for this study in Sec.~\ref{sec:data}, together with a description of different quality cuts that we perform. We then describe our analysis approach in Sec.~\ref{sec:analysis}. We present our results in Sec.~\ref{sec:results} and put them into context during our discussion in Sec.~\ref{sec:discussion}. We conclude our stud and give an outlook in Sec.~\ref{sec:conclusions}.
 
 \section{Data} \label{sec:data}
-
+\includegraphics[scale=0.3]{Image 11-3-2024 at 1.09 pm 2}
 This section should describe all the data that you used. Try to explain everything that is necessary for a reader to understand how the data was obtained, but do not go overboard with the details:  (it is not important that button X was pressed)
 
 Normally the next section describes the techniques the authors used.
@@ -174,6 +149,19 @@ Whenever you perform any cuts or selection of the data, you need to include this
 \texttt{flag\_sp} = 0, \texttt{flag\_fe\_h} = 0, \\
 \texttt{flag\_X\_fe} = 0 \text{ for each used element X} \\
 \end{cases}
+\end{equation}
+ For example that we define the absolute \textit{chemical abundance} A(X) as the logarithmic ratio of the number densities $N$ of elements X to hydrogen, that is 
+\begin{equation}
+\mathrm{A(X)} = \log_{10} \frac{N_\text{X}}{N_\text{H}} + 12.   
+\end{equation}
+
+Comparing this ratio with the Solar ($\odot$) one would lead us to 
+\begin{equation}
+\mathrm{[X/H]} = \mathrm{A(X)} - \mathrm{A(X)}_\odot    
+\end{equation}
+and comparing that to iro\footnote{Iron is used because it is one of the elements with the most lines in neutral and ionised states in stellar spectra and a lot of element number densities scale with it.} as an often-used metallicity tracer would lead us to
+\begin{equation}
+\mathrm{[X/Fe]} = \mathrm{[X/H]} - \mathrm{[Fe/H]}.
 \end{equation}
 
 
